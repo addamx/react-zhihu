@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.1.6",
     "autoprefixer": "7.1.6",
     "axios": "^0.17.1",
     "babel-core": "6.26.0",
@@ -94,9 +95,25 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugin": [
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "libraryDirectory": "es",
+          "style": "css"
+        }
+      ],
+      "transform-decorators-legacy",
+      "react-hot-loader/babel"
     ]
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "react-app-rewired": "^1.4.1",
+    "react-hot-loader": "^3.1.3"
   }
 }
