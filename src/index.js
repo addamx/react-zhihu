@@ -17,12 +17,14 @@ function renderApp(Component) {
   )
 }
 
-// if (module.hot) {
-//   module.hot.accept("./router", () => {
-//     renderApp(Root);
-//   });
-// } else {
-  renderApp(Root)
-// }
+renderApp(Root);
+
+if (module.hot) {
+  module.hot.accept("./router", () => {
+    const NextApp = require("./router").default;
+    renderApp(NextApp);
+  })
+}
+  
 
 registerServiceWorker();
