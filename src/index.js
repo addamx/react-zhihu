@@ -4,14 +4,19 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import {AppContainer} from 'react-hot-loader';
 import Root from './router';
-// import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';
+import configureStore from './store'
+
+const store = configureStore();
+
+console.log(store.getState())
 
 function renderApp(Component) {
   ReactDOM.render(
     <AppContainer>
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
         <Component />
-      {/* </Provider> */}
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   )

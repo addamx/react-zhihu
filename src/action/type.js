@@ -1,0 +1,2 @@
+export const GET_ALL_QUESTIONS = 'GET_ALL_QUESTIONS';
+export const GET_USER_INFO = 'GET_USER_INFO';

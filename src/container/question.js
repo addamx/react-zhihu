@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import AnswerList from '../component/answerList'
+import { connect } from 'react-redux'
+
 
 export default class Question extends Component {
   render() {

@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import Header from '../component/header'
 import QuestionList from '../component/questionList'
+import { connect } from 'react-redux'
 
-export default class componentName extends Component {
+
+@connect(
+  state => ({
+    questionList: state.get('questions').get('allQuestions')
+  })
+)
+export default class DashBoard extends Component {
   render() {
+    const { questionList } = this.props;
     return (
       <div>
         <Header />
-        <QuestionList />
+        <QuestionList questionList={questionList} />
       </div>
     )
   }
