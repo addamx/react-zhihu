@@ -1,4 +1,4 @@
-import { GET_ALL_QUESTIONS } from '../../action/type';
+import { GET_QUESTION_LIST } from '../../action/type';
 import { Map, List } from "immutable";
 
 const initialState = Map({
@@ -8,7 +8,7 @@ const initialState = Map({
 export default (state = initialState, action) => {
   switch (action.type) {
 
-    case GET_ALL_QUESTIONS:
+    case GET_QUESTION_LIST:
       return state.set('allQuestions', action.payload);
 
     default:
