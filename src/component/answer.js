@@ -1,9 +1,12 @@
 import React from 'react'
+import moment from 'moment'
 
-export default (props) => {
+export default ({content, author, date}) => {
   return (
     <div>
-      {props.content}
+      {content}
+      {author.get('name')}
+      {moment(date).format('YYYY-MM-DD')}
     </div>
   )
 }

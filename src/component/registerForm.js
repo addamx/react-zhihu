@@ -1,12 +1,11 @@
 import React from 'react'
 
-export default () => {
+export default ({handleRegister, handleTextChange, value}) => {
   return (
-    <form>
-      <input placeholder="用户名" />
-      <input type="password" placeholder="密码" />
-      <input type="password" placeholder="再次输入密码" />
-      <button type="submit">登录</button>
-    </form>
+    <div>
+      <input name="name" onChange={v => handleTextChange(v)} value={value.name} placeholder="用户名" />
+      <input name="pwd" onChange={v => handleTextChange(v)} type="password" value={value.pwd} placeholder="密码" />
+      <button onClick={handleRegister}>注册</button>
+    </div>
   )
 }

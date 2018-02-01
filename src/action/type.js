@@ -10,4 +10,5 @@ export const GET_USER_QUESTIONS = 'GET_USER_QUESTIONS';
  * Question
  */
 export const GET_QUESTION_LIST = 'GET_QUESTION_LIST';
+export const GET_QUESTION = 'GET_QUESTION';
 export const ADD_QUESTION = 'ADD_QUESTION'

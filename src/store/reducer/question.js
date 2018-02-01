@@ -1,8 +1,9 @@
-import { GET_QUESTION_LIST } from '../../action/type';
+import { GET_QUESTION_LIST, GET_QUESTION } from '../../action/type';
 import { Map, List } from "immutable";
 
 const initialState = Map({
-  allQuestions: List([{title:'wen1'}, {title:'wen2'}])
+  allQuestions: List(),
+  current: Map()
 })
 
 export default (state = initialState, action) => {
@@ -10,6 +11,8 @@ export default (state = initialState, action) => {
 
     case GET_QUESTION_LIST:
       return state.set('allQuestions', action.payload);
+    case GET_QUESTION:
+      return state.set('current', action.payload)
 
     default:
       return state

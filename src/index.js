@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import {AppContainer} from 'react-hot-loader';
 import Root from './router';
 import { Provider } from 'react-redux';
 import configureStore from './store'
+import './util/axiosMiddleware';
+// import './util/rem';
+import './index.css';
+
 
 const store = configureStore();
 
-console.log(store.getState())
+console.log(store.getState().toJS())
 
 function renderApp(Component) {
   ReactDOM.render(
