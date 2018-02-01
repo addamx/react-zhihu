@@ -6,6 +6,7 @@ export default ({ questionList }) => {
   return (
     <ul>
       {
+        questionList.size &&
         questionList.map( (el,index) => (
           <li key={index}>
             <QuestionItem

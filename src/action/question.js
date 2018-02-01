@@ -31,3 +31,19 @@ export function fetchQuestion(questionId) {
     }
   }
 }
+
+
+export function askQuestion(title, desc, authorId) {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post("/question/add", { title, desc });
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(fetchQuestionList())
+        return true;
+      }
+    } catch (error) {
+      console.log(error)
+      return false;
+    }
+  }
+}

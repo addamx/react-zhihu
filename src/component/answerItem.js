@@ -5,7 +5,7 @@ export default ({content, author, date}) => {
   return (
     <div>
       {content}
-      {author.get('name')}
+      {author}
       {moment(date).format('YYYY-MM-DD')}
     </div>
   )

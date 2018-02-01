@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../component/header'
+import Header from './header'
 import QuestionList from '../component/questionList'
 import { connect } from 'react-redux'
 import { fetchQuestionList } from '../action/question'

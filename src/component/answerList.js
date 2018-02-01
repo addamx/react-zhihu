@@ -1,16 +1,16 @@
 import React from 'react'
-import Answer from './answer'
+import AnswerItem from './answerItem'
 
 export default ({ answerList }) => {
   return (
     <ul>
       {
-        answerList &&
+        answerList && answerList.size &&
         answerList.map((el, index) => (
           <li key={index}>
-            <Answer 
+            <AnswerItem 
               content={el.get('content')}
-              author={el.get('author')}
+              author={el.get('author').get('name')}
               date={el.get('date')}
             />
           </li>

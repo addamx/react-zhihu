@@ -46,3 +46,16 @@ export function register(name, pwd) {
     }
   }
 }
+
+export function fetchUser(userId) {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`/user/info/${userId}`)
+      if (res.status === 200 && res.data.code === 0) {
+        return fromJS(res.data.data);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
