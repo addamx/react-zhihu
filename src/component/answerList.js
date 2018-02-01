@@ -5,7 +5,7 @@ export default ({ answerList }) => {
   return (
     <ul>
       {
-        answerList && answerList.size &&
+        answerList.size > 0 &&
         answerList.map((el, index) => (
           <li key={index}>
             <AnswerItem 

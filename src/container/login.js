@@ -4,7 +4,9 @@ import RegisterForm from '../component/registerForm'
 import { login, register } from '../action/user'
 import { connect } from 'react-redux'
 
-@connect(null,{ login, register })
+@connect(state => ({
+  current: state.get('people').get('current')
+}),{ login, register })
 export default class Login extends Component {
   constructor() {
     super()
@@ -24,13 +26,14 @@ export default class Login extends Component {
     });
   }
 
-  handleLogin() {
-    const isSuccess = this.props.login(this.state.name, this.state.pwd)
-    // isSuccess && this.props.history.push('/dashboard')
+  async handleLogin() {
+    const isSuccess = await this.props.login(this.state.name, this.state.pwd)
+    isSuccess && this.props.history.push(`/people/${this.props.current.get('_id')}`)
   }
 
-  handleRegister() {
-    const isSuccess = this.props.register(this.state.name, this.state.pwd)
+  async handleRegister() {
+    const isSuccess = await this.props.register(this.state.name, this.state.pwd)
+    isSuccess && this.props.history.push(`/people/${this.props.current.get('_id')}`)
   }
 
   render() {

@@ -5,12 +5,15 @@ import { fetchUser } from '../action/user'
 import { connect } from 'react-redux'
 import { fromJS } from 'immutable'
 
-@connect(null, { fetchUser })
+@connect(
+  null,
+  { fetchUser }
+)
 export default class People extends Component {
   constructor() {
     super()
     this.state = {
-      people: fromJS({
+      user: fromJS({
         name: '',
         answers: [],
         questions: []
@@ -18,16 +21,16 @@ export default class People extends Component {
     }
   }
   async componentDidMount() {
-    const res = await this.props.fetchUser(this.props.match.params.id);
-    this.setState({people: res})
-    console.log(this.state.people.toJS())
+    const userId = this.props.match.params.id;
+    const res = await this.props.fetchUser(userId);
+    this.setState({ user: res })
   }
   render() {
     return (
       <div>
-        <h1>{this.state.people.get('name')}的个人主页</h1>
-        <AnswerList answerList={this.state.people.get('answers')} />
-        <QuestionList questionList={this.state.people.get('questions')} />
+        <h1>{this.state.user.get('name')}的个人主页</h1>
+        <AnswerList answerList={this.state.user.get('answers')} />
+        <QuestionList questionList={this.state.user.get('questions')} />
       </div>
     )
   }

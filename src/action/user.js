@@ -1,7 +1,7 @@
 import {
   GET_USER_INFO,
   USER_REGISTER,
-  // USER_LOGIN,
+  USER_LOGIN,
   USER_LOG_OUT,
   GET_USER_QUESTIONS
 } from './type';
@@ -14,7 +14,7 @@ export function login(name, pwd) {
     try {
       const res = await axios.post("/user/login", { name, pwd });
       if (res.status === 200 && res.data.code === 0) {
-        // dispatch({ type: USER_LOGIN, payload: res.data.data });
+        dispatch({ type: USER_LOGIN, payload: fromJS(res.data.data) });
         window.localStorage.setItem('token', res.data.token)
         return true
       }
@@ -33,7 +33,7 @@ export function register(name, pwd) {
     try {
       const res = await axios.post("/user/register", { name, pwd });
       if (res.status === 200 && res.data.code === 0) {
-        // dispatch({ type: USER_LOGIN, payload: res.data.data });
+        dispatch({ type: USER_REGISTER, payload: fromJS(res.data.data) });
         window.localStorage.setItem('token', res.data.token)
         return true;
       }
@@ -52,6 +52,7 @@ export function fetchUser(userId) {
     try {
       const res = await axios.get(`/user/info/${userId}`)
       if (res.status === 200 && res.data.code === 0) {
+        // dispatch({ type: GET_USER_INFO, payload: fromJS(res.data.data) });
         return fromJS(res.data.data);
       }
     } catch (error) {

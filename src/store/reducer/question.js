@@ -3,7 +3,9 @@ import { Map, List } from "immutable";
 
 const initialState = Map({
   allQuestions: List(),
-  current: Map()
+  current: Map({
+    answers: List()
+  })
 })
 
 export default (state = initialState, action) => {
