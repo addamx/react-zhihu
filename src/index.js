@@ -12,7 +12,7 @@ import './index.css';
 
 const store = configureStore();
 
-console.log(store.getState().toJS())
+store.subscribe(()=>{console.log(store.getState().toJS())})
 
 function renderApp(Component) {
   ReactDOM.render(

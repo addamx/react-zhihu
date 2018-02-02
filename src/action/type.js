@@ -11,4 +11,10 @@ export const GET_USER_QUESTIONS = 'GET_USER_QUESTIONS';
  */
 export const GET_QUESTION_LIST = 'GET_QUESTION_LIST';
 export const GET_QUESTION = 'GET_QUESTION';
-export const ADD_QUESTION = 'ADD_QUESTION'
+export const ADD_QUESTION = 'ADD_QUESTION';
+/**
+ * Chat
+ */
+export const GET_CHATLIST = 'GET_CHATLIST';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const READ_MESSAGE = 'READ_MESSAGE';

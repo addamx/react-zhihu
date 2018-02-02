@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux-immutable';
 import people from './people'
 import question from './question'
+import inbox from './inbox'
 
 const appReducers = combineReducers({
   people,
-  question
+  question,
+  inbox
 })
 
 export default (state, action) => {
