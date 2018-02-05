@@ -4,24 +4,24 @@ import { GET_CHATLIST, SEND_MESSAGE, READ_MESSAGE } from '../../action/type'
 const initState = fromJS({
   noReadChat: 0, //未读消息数目
   chatList: [
-    /*
-    {
-      chatId: '',
-      noReadMsg: 0,
-      talker: '',
-      date: '',
-      messageList: [
-        {
-          from: '',
-          to: '',
-          content: '',
-          date: '',
-          fromReaded: false,
-          toReaded: false
-        }
-      ]
-    }
-    */
+    // {
+    //   chatId: '',
+    //   noReadMsg: 0,
+    //   talker: '',
+    //   date: '',
+      
+    // }
+  ],
+  messageList: [
+    // {
+    //   chatId: '',
+    //   from: '',
+    //   to: '',
+    //   content: '',
+    //   date: '',
+    //   fromReaded: false,
+    //   toReaded: false
+    // }
   ]
 })
 
@@ -78,16 +78,14 @@ export default (state = initState, action) => {
       var noReadChat = state.get('noReadChat') + 1;
       var chatList = state.get('chatList');
       
-      console.log(chatList.toJS())
       const chatIndex = chatList.findKey((v, index, arr) => v.get('chatId') === chatId);
-      console.log(chatIndex)
 
       //已存在的chat
       if (chatIndex != undefined) {
         var date = payload.date;
         var chat = chatList.get(chatIndex);
         var noReadMsg = chat.get('noReadMsg') + 1;
-        var messageList = chat.get('messageList').push(payload.newMsg);
+        var messageList = state.get('messageList').push(payload.newMsg);
         var chat = chat.merge({date, noReadMsg, messageList})
         var chatList = chatList.set(chatIndex, chat);
 
