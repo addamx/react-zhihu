@@ -6,7 +6,11 @@ let socket = null;
 export function connectSocket() {
   return (dispatch, state) => {
     try {
-      socket = io('ws://127.0.0.1:1510')
+      const token = window.localStorage.getItem('token');
+
+      socket = io('ws://127.0.0.1:1510', {
+        query: { token: token }
+      })
       //连接服务器
       socket.on('connect', () => {
         socket.emit('user', 'addams')
