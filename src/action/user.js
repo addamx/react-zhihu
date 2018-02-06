@@ -47,12 +47,22 @@ export function register(name, pwd) {
   }
 }
 
-export function fetchUser(userId) {
+/**
+ * 默认获取登录用户的信息
+ * @param {*} userId 
+ */
+export function fetchUser(userId = 'current') {
   return async (dispatch) => {
     try {
-      const res = await axios.get(`/user/info/${userId}`)
+      let res = null;
+      if (userId === 'current') {
+        res = await axios.get(`/user/auth`);
+      } else {
+        res = await axios.get(`/user/info/${userId}`);
+      }
       if (res.status === 200 && res.data.code === 0) {
-        // dispatch({ type: GET_USER_INFO, payload: fromJS(res.data.data) });
+        //如果是登录用户, 则持久化
+        if (userId === 'current') dispatch({ type: USER_LOGIN, payload: fromJS(res.data.data) });
         return fromJS(res.data.data);
       }
     } catch (error) {

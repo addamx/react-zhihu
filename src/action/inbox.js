@@ -16,7 +16,7 @@ export function connectSocket() {
         socket.emit('user', 'addams')
       });
       //接收聊天消息
-      socket.on("message", data => {
+      socket.on("receiveMessage", data => {
         console.log(data);
       });
 
@@ -43,14 +43,13 @@ export function sendMessage(toId, message) {
   return (dispatch, state) => {
     const userId = state().get('people').get('current').get('_id');
     const newMsg = {
-      from: userId,
       to: toId,
       message,
       date: Date()
     }
     const chatId = [userId, toId].sort().join('')
     dispatch({type: SEND_MESSAGE, payload: {chatId, talker: toId, date: Date(), newMsg }})
-    socket.emit('sendMessage', {from: userId, to: toId, message, chatId, date: Date()});
+    socket.emit('sendMessage', {to: toId, message, chatId, date: Date()});
   }
 }
 export function sendMessageSuccess() {
