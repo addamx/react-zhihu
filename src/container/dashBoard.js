@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Header from './header'
 import QuestionList from '../component/questionList'
 import { connect } from 'react-redux'
 import { fetchQuestionList } from '../action/question'
+import Header from './header'
 
 
 @connect(

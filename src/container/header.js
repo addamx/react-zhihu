@@ -5,7 +5,10 @@ import { askQuestion } from '../action/question'
 import { connect } from 'react-redux'
 
 @connect(
-  null,
+  state => ({
+    user: state.get('people').get('current'),
+    noReadChat: state.get('inbox').get('noReadChat')
+  }),
   {
     askQuestion
   }
@@ -35,8 +38,13 @@ export default class Header extends Component {
     return (
       <div>
         <SearchBar />
-        <button onClick={this.handleAskQuestion}>提问</button>
-        <Ask handleTextChange={this.handleTextChange} />
+        <div>
+          <button onClick={this.handleAskQuestion}>提问</button>
+          <Ask handleTextChange={this.handleTextChange} />
+        </div>
+        <div>
+          <span>chat-Icon {this.props.noReadChat}</span>
+        </div>
       </div>
     )
   }
