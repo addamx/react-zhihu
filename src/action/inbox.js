@@ -1,6 +1,8 @@
 import io from 'socket.io-client';
 import { GET_CHATLIST, SEND_MESSAGE, READ_MESSAGE } from './type'
 
+import axios from 'axios';
+
 let socket = null;
 
 export function connectSocket() {
@@ -35,8 +37,34 @@ export function getUserName(userId) {
   return 
 }
 
-export function getChatList(userId) {
+export function fetchChatList() {
+  return async (dispatch, state) => {
+    try {
+      const res = await axios.get('/inbox/all');
+      if(res.status === 200 && res.data.code === 0) {
+        const userId = state().get('people').get('current').get('_id');
+        const chatList = res.data.data;
 
+        let noReadChat = 0;
+        console.log(userId, chatList)
+        chatList.forEach(chat => {
+          let noReadMsg = 0;
+          chat.messageList.forEach(msg => {
+            if (msg.from._id === userId && !msg.fromReaded) {
+              noReadMsg++
+            } else if(msg.to._id === userId && !msg.toReaded){
+              noReadMsg++
+            }
+          })
+          chat.noReadChat = noReadMsg
+          if (noReadMsg ) {noReadChat = noReadChat + noReadMsg}
+        })
+        dispatch({type: GET_CHATLIST, payload: {noReadChat, chatList}})
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export function sendMessage(toId, message) {

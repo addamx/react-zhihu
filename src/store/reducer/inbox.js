@@ -42,21 +42,7 @@ export default (state = initState, action) => {
     }
     */
     case GET_CHATLIST:          
-      var noReadChat = 0;
-      const userId = action.payload.userId
-      const chatList = action.payload.chatList;
-      chatList.forEach(chat => {
-        var noReadMsg = 0;
-        chat.messageList.forEach(msg => {
-          if (msg.from === userId && !msg.fromReaded) {
-            noReadMsg++
-          } else if(msg.to === userId && !msg.toReaded){
-            noReadMsg++
-          }
-        })
-        chat.noReadChat = noReadMsg
-        if (noReadMsg ) {noReadChat = noReadChat + noReadMsg}
-      })
+      const {noReadChat, chatList} = action.payload;      
       return state.merge({noReadChat, chatList})
   
     // {
