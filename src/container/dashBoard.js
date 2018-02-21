@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 import { fetchQuestionList } from '../action/question'
 import { fetchUser } from '../action/user'
 import { fetchChatList } from '../action/inbox'
-import NavBar from '../component/navBar'
+import InboxIcon from '../component/inboxIcon'
 
 
 @connect(
   state => ({
-    questionList: state.get('question').get('allQuestions')
+    questionList: state.get('question').get('allQuestions'),
+    noReadChat: state.get('inbox').get('noReadChat'),
+    chatList: state.get('inbox').get('chatList')
   }),
   {
     fetchUser,
@@ -27,7 +29,7 @@ export default class DashBoard extends Component {
     const { questionList } = this.props;
     return (
       <div>
-        <NavBar />
+        <InboxIcon noReadChat={this.props.noReadChat} />
         <QuestionList questionList={questionList} />
       </div>
     )
