@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 @connect(state => ({
   current: state.get('people').get('current')
-}),{ login, register })
+}), { login, register })
 export default class Login extends Component {
   constructor() {
     super()
@@ -39,8 +39,8 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <LoginForm handleLogin={this.handleLogin} handleTextChange={this.handleTextChange} value={{name: this.state.name, pwd: this.state.pwd}} />
-        <RegisterForm handleRegister={this.handleRegister} handleTextChange={this.handleTextChange} value={{name: this.state.name, pwd: this.state.pwd}} />
+        <LoginForm handleLogin={this.handleLogin} handleTextChange={this.handleTextChange} value={{ name: this.state.name, pwd: this.state.pwd }} />
+        <RegisterForm handleRegister={this.handleRegister} handleTextChange={this.handleTextChange} value={{ name: this.state.name, pwd: this.state.pwd }} />
       </div>
     )
   }
