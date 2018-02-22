@@ -62,8 +62,9 @@ export function fetchUser(userId = 'current') {
       }
       if (res.status === 200 && res.data.code === 0) {
         //如果是登录用户, 则持久化
-        if (userId === 'current') dispatch({ type: USER_LOGIN, payload: fromJS(res.data.data) });
-        return fromJS(res.data.data);
+        var $res = fromJS(res.data.data)
+        if (userId === 'current') dispatch({ type: USER_LOGIN, payload: $res });
+        return $res;
       }
     } catch (error) {
       console.log(error)

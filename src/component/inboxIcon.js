@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-export default ({ noReadChat }) => {
-  return (
-    <div>
-      <span>{ noReadChat }</span>
-      <ul>
-        {
-          // chatList.map((el) => (
-          //   <li><Link></Link></li>
-          // ))
-        }
-      </ul>
-      <Link to="/inbox">查看全部私信</Link>
-    </div>
-  )
+@connect(state => ({
+  noReadChat: state.get('inbox').get('noReadChat')
+}))
+export default class InboxIcon extends Component {
+
+  render() {
+    return (
+      <div>
+        <i><Link to="/inbox">inbox-icon {this.props.noReadChat}</Link></i>
+      </div>
+    )
+  }
 }
