@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { fetchQuestionList } from '../action/question'
-import InboxIcon from '../component/inboxIcon'
 import QuestionList from '../component/questionList'
 
 import NavBar from '../component/navBar'

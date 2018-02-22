@@ -18,3 +18,8 @@ export const ADD_QUESTION = 'ADD_QUESTION';
 export const GET_CHATLIST = 'GET_CHATLIST';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const READ_MESSAGE = 'READ_MESSAGE';
+/**
+ * Notice
+ */
+export const GET_NOTICE = 'GET_NOTICE'
+export const GET_NOTICELIST = 'GET_NOTICELIST'

@@ -7,7 +7,8 @@ import DashBoard from '../container/dashBoard'
 const Root = () => (
   <Router>
     <Switch>
-      <Route path="/login" component={Login} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Login} />
       <Route component={DashBoard} />
     </Switch>
   </Router>

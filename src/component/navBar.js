@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchBar from '../component/searchBar'
 import Ask from '../component/ask'
 import InboxIcon from './inboxIcon'
+import NoticeIcon from './noticeIcon'
 import { askQuestion } from '../action/question'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -44,12 +45,18 @@ export default class Header extends Component {
     return (
       <div>
         <SearchBar />
-        <div>
-          <button onClick={this.handleAskQuestion}>提问</button>
-          <Ask handleTextChange={this.handleTextChange} />
-        </div>
+        {
+          userId &&
+          <div>
+            <button onClick={this.handleAskQuestion}>提问</button>
+            <Ask handleTextChange={this.handleTextChange} />
+          </div>
+        }
         {
           userId && <InboxIcon noReadChat={noReadChat} />
+        }
+        {
+          userId && <NoticeIcon />
         }
         {
           userId || 
