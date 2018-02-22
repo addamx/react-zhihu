@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { fetchUser } from '../action/user'
-import { fetchChatList } from '../action/inbox'
+import { fetchChatList, connectSocket } from '../action/inbox'
 
 import Home from './home'
 import Question from '../container/question'
@@ -16,6 +16,7 @@ import {  Route, Switch } from "react-router-dom";
   {
     fetchUser,
     fetchChatList,
+    connectSocket
   }
 )
 export default class DashBoard extends Component {
@@ -27,6 +28,7 @@ export default class DashBoard extends Component {
       if (res) {
         //验证成功则初始化
         await this.props.fetchChatList();
+        this.props.connectSocket();
         return;
       } 
     }

@@ -33,10 +33,6 @@ export function connectSocket() {
   }
 }
 
-export function getUserName(userId) {
-  return 
-}
-
 export function fetchChatList() {
   return async (dispatch, state) => {
     try {
@@ -46,7 +42,6 @@ export function fetchChatList() {
         const chatList = res.data.data;
 
         let noReadChat = 0;
-        console.log(userId, chatList)
         chatList.forEach(chat => {
           let noReadMsg = 0;
           chat.messageList.forEach(msg => {

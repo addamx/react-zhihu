@@ -11,7 +11,7 @@ export default class componentName extends Component {
       <ul>
         {
           noticeList.map(el => (
-            <li key={el.get('id')} className={`notice-${el.get('type')}`}>{el.get('content')}</li>
+            <li key={el.get('_id')} className={`notice-${el.get('type')}`}>{el.get('content')}</li>
           ))
         }
       </ul>
