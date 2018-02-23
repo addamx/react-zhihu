@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { connectSocket, sendMessage } from '../action/inbox'
+import ChatList from '../component/chatList'
 
-import { fetchUser } from '../action/user'
-
-@connect(null, { connectSocket, sendMessage, fetchUser })
+@connect(state => ({
+  chatList: state.get('inbox').get('chatList')
+}))
 export default class Inbox extends Component {
   constructor() {
     super();
@@ -15,9 +15,6 @@ export default class Inbox extends Component {
     this.handleTextChange = this.handleTextChange.bind(this);
   }
 
-  async componentDidMount() {
-    await this.props.fetchUser()
-  }
 
   handleTextChange(e) {
     this.setState({
@@ -28,10 +25,7 @@ export default class Inbox extends Component {
     return (
       <div>
         <h1>私信</h1>
-        <button onClick={this.props.connectSocket}>connect serverSocket</button>
-        <input onChange={this.handleTextChange} name="name" />
-        <input onChange={this.handleTextChange} name="message"/>
-        <button onClick={() => this.props.sendMessage(this.state.name, this.state.message)}>send msg</button>
+        <ChatList chatList={this.props.chatList} />
       </div>
     )
   }

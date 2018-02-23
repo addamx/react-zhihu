@@ -2,7 +2,7 @@ import {
   GET_USER_INFO,
   USER_REGISTER,
   USER_LOGIN,
-  USER_LOG_OUT,
+  USER_LOGOUT,
   GET_USER_QUESTIONS
 } from './type';
 import axios from 'axios';
@@ -71,3 +71,9 @@ export function fetchUser(userId = 'current') {
     }
   }
 }
+
+
+export function logout() {
+  return { type: USER_LOGOUT }
+}
+

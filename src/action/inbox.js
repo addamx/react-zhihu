@@ -39,22 +39,38 @@ export function fetchChatList() {
       const res = await axios.get('/inbox/all');
       if(res.status === 200 && res.data.code === 0) {
         const userId = state().get('people').get('current').get('_id');
-        const chatList = res.data.data;
+        const _chatList = res.data.data;
 
         let noReadChat = 0;
-        chatList.forEach(chat => {
+        let chatList = [];
+        let _messageList = [];
+        _chatList.forEach(chat => {
           let noReadMsg = 0;
-          chat.messageList.forEach(msg => {
+          const {messageList, talkers, ...rest} = chat;
+          const talkerId = chat.chatId.replace(userId, '');
+          const talker = talkers.find(el => {
+            return el._id === talkerId
+          })
+
+          messageList.forEach(msg => {
+            const { fromReaded, toReaded, from, to, ...rest } = msg;
+            let fromMe;
             if (msg.from._id === userId && !msg.fromReaded) {
+              fromMe = true;
               noReadMsg++
             } else if(msg.to._id === userId && !msg.toReaded){
+              fromMe = false;
               noReadMsg++
             }
+
+          _messageList.push({ fromMe, ...rest });
           })
           chat.noReadChat = noReadMsg
           if (noReadMsg ) {noReadChat = noReadChat + noReadMsg}
+
+          chatList.push({talker, noReadMsg, ...rest});
         })
-        dispatch({type: GET_CHATLIST, payload: {noReadChat, chatList}})
+        dispatch({type: GET_CHATLIST, payload: {noReadChat, chatList, messageList: _messageList}})
       }
     } catch (error) {
       console.log(error)
@@ -62,19 +78,14 @@ export function fetchChatList() {
   }
 }
 
-export function sendMessage(toId, message) {
+
+export function sendMessage(talker, message) {
   return (dispatch, state) => {
     const userId = state().get('people').get('current').get('_id');
-    const newMsg = {
-      to: toId,
-      message,
-      date: Date()
-    }
-    const chatId = [userId, toId].sort().join('')
-    dispatch({type: SEND_MESSAGE, payload: {chatId, talker: toId, date: Date(), newMsg }})
-    socket.emit('sendMessage', {to: toId, message, chatId, date: Date()});
+    const chatId = [userId, talker.get('_id')].sort().join('')
+    dispatch({type: SEND_MESSAGE, payload: {chatId, date: Date(), message, talker}})
+    socket.emit('sendMessage', { to: talker.get('_id'), message, chatId, date: Date() });
   }
 }
-export function sendMessageSuccess() {
 
-}
+

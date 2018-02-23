@@ -3,6 +3,7 @@ import SearchBar from '../component/searchBar'
 import Ask from '../component/ask'
 import InboxIcon from './inboxIcon'
 import NoticeIcon from './noticeIcon'
+import UserIcon from './userIcon'
 import { askQuestion } from '../action/question'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -42,29 +43,31 @@ export default class Header extends Component {
     const { user, noReadChat } = this.props;
     const userId = user.get('_id');
 
-    return (
-      <div>
-        <SearchBar />
-        {
-          userId &&
+    let header;
+    if (userId) {
+      header = (
+        <div>
           <div>
             <button onClick={this.handleAskQuestion}>提问</button>
             <Ask handleTextChange={this.handleTextChange} />
           </div>
-        }
-        {
-          userId && <InboxIcon noReadChat={noReadChat} />
-        }
-        {
-          userId && <NoticeIcon />
-        }
-        {
-          userId || 
-          <div>
-              <Link to="/login">登录</Link>
-              <Link to="/register">注册</Link>
-          </div>
-        }
+          <NoticeIcon />
+          <InboxIcon noReadChat={noReadChat} />
+          <UserIcon user={user} />
+        </div>
+      )
+    } else {
+      header = (
+        <div>
+            <Link to="/login">登录</Link>
+            <Link to="/register">注册</Link>
+        </div>
+      )
+    }
+    return (
+      <div>
+        <SearchBar />
+        {header}      
       </div>
     )
   }
