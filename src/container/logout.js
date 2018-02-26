@@ -24,6 +24,7 @@ export default class Logout extends Component {
     return (
       <div>
         <h2>你已经退出</h2>
+        
       </div>
     )
   }
