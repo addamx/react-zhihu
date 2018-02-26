@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { GET_CHATLIST, SEND_MESSAGE, READ_MESSAGE } from './type'
+import { GET_CHATLIST, GET_USER, SEND_MESSAGE, READ_MESSAGE, SET_CURRENTCHAT } from './type'
 
 import axios from 'axios';
 
@@ -18,9 +18,16 @@ export function connectSocket() {
         socket.emit('user', 'addams')
       });
       //接收聊天消息
-      socket.on("receiveMessage", data => {
-        console.log(data);
+      socket.on('receiveMessage', data => {
+        const userId = state().get('people').get('current').get('_id');
+        const chatId = data.chatId;
+        dispatch({type: SEND_MESSAGE, payload: {chatId, date: Date(), fromMe: false, message:data.message, talker: data.from, readed: false}})
+
       });
+      //接收聊天对象的名字
+      socket.on('getUser', user => {
+        dispatch({ type: GET_USER, payload: user });
+      })
 
 
       //测试服务器回应
@@ -30,6 +37,12 @@ export function connectSocket() {
     } catch (error) {
       console.error(error)
     }
+  }
+}
+
+export function fetchUser(userId) {
+  return dispatch => {
+    socket.emit('fetchUser', userId);
   }
 }
 
@@ -54,16 +67,18 @@ export function fetchChatList() {
 
           messageList.forEach(msg => {
             const { fromReaded, toReaded, from, to, ...rest } = msg;
-            let fromMe;
-            if (msg.from._id === userId && !msg.fromReaded) {
-              fromMe = true;
-              noReadMsg++
-            } else if(msg.to._id === userId && !msg.toReaded){
+            let fromMe = true;
+            let readed = false;
+            if (msg.to._id === userId) {
               fromMe = false;
-              noReadMsg++
+              if(!msg.toReaded) {
+                noReadMsg++;
+              } else {
+                readed = true;
+              }
             }
 
-          _messageList.push({ fromMe, ...rest });
+          _messageList.push({ fromMe, readed, ...rest });
           })
           chat.noReadChat = noReadMsg
           if (noReadMsg ) {noReadChat = noReadChat + noReadMsg}
@@ -82,10 +97,19 @@ export function fetchChatList() {
 export function sendMessage(talker, message) {
   return (dispatch, state) => {
     const userId = state().get('people').get('current').get('_id');
-    const chatId = [userId, talker.get('_id')].sort().join('')
-    dispatch({type: SEND_MESSAGE, payload: {chatId, date: Date(), message, talker}})
-    socket.emit('sendMessage', { to: talker.get('_id'), message, chatId, date: Date() });
+    const chatId = [userId, talker._id].sort().join('')
+    dispatch({type: SEND_MESSAGE, payload: {chatId, date: Date(), fromMe: true, message, talker}})
+    socket.emit('sendMessage', { to: talker._id, message, chatId, date: Date(), readed: true });
   }
 }
 
-
+//设置当前聊天内容
+export function setCurrentChat(chatId) {
+  return (dispatch, state) => {
+    const currentChat = state().get('inbox').get('messageList').filter(el => {
+      return el.get('chatId') === chatId;
+    });
+    socket.emit('readChat', chatId);
+    dispatch({type: SET_CURRENTCHAT, payload: currentChat})
+  }
+}

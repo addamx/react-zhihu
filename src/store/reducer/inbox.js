@@ -1,5 +1,5 @@
 import { Map, List, fromJS } from "immutable";
-import { GET_CHATLIST, SEND_MESSAGE, READ_MESSAGE } from '../../action/type'
+import { GET_CHATLIST, SEND_MESSAGE, READ_MESSAGE, GET_USER, SET_CURRENTCHAT } from '../../action/type'
 
 const initState = fromJS({
   noReadChat: 0, //未读消息数目
@@ -18,10 +18,14 @@ const initState = fromJS({
     //   to: '',
     //   message: '',
     //   date: '',
-    //   fromReaded: false,
-    //   toReaded: false
+    //   readed: false
     // }
-  ]
+  ],
+  currentTalker: {
+    name: '',
+    _id: ''
+  },
+  currentChat: []
 })
 
 export default (state = initState, action) => {
@@ -29,33 +33,48 @@ export default (state = initState, action) => {
     case GET_CHATLIST:          
       return state.merge(action.payload)
 
-    case SEND_MESSAGE:
-      console.log('SEND_MESSAGE:', action.payload)
-    
-      var { chatId, date, message, fromMe, talker } = action.payload
+    case SET_CURRENTCHAT:
+      return state.merge({currentChat: action.payload});
 
+    case GET_USER:
+      return state.merge({currentTalker: action.payload})
+
+    case SEND_MESSAGE:
+    
+      var { chatId, date, message, fromMe, readed, talker } = action.payload
       var noReadChat = state.get('noReadChat') + 1;
       var chatList = state.get('chatList');
-      var messageList = state.get('messageList').push(Map({ chatId, fromMe: false, date, message }));
+      var newMsg = Map({ chatId, fromMe, date, message, readed });
+      var messageList = state.get('messageList').push(newMsg);
       
       const chatIndex = chatList.findKey((v, index, arr) => v.get('chatId') === chatId);
 
-      //已存在的chat
-      if (chatIndex != undefined) {
-        console.log(messageList.toJS())
+      var result;
 
-        return state.merge({ messageList });
+      //正在和对应的ID聊天
+      if (talker._id === state.get('currentTalker').get('_id')) {
+        readed = true;
+        var currentChat = state.get('currentChat').push(newMsg.set('readed', true));
+        result = {currentChat};
+      }
+      //有聊天记录
+      if (chatIndex !== -1) {
+          result = { messageList, ...result};
       } else {
+      //无聊天记录
         var chatList = chatList.push(
             Map({
               date,
               chatId,
               talker,
+              readed,
               noReadMsg: 1,
             })
           );
-        return state.merge({ noReadChat, chatList, messageList });
+        result = { noReadChat, chatList, messageList, ...result };
       }
+      
+      return state.merge(result);
     
     default:
       return state;

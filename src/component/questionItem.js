@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import Author from './common/author'
 
-export default ({title, questionId, author, date}) => {
+export default ({title, questionId, author, date, history}) => {
   return (
     <div>
-      <Link to={`/question/${questionId}`}>{title}-{author}-{moment(date).format('YYYY-MM-DD')}</Link>
+      <div title={`/question/${questionId}`}>{title}-<Author author={author} history={history} />-{moment(date).format('YYYY-MM-DD')}</div>
     </div>
   )
 }
+

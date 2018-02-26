@@ -2,7 +2,7 @@ import React from 'react';
 import QuestionItem from './questionItem'
 
 
-export default ({ questionList }) => {
+export default ({ questionList, history }) => {
   return (
     <ul>
       {
@@ -12,8 +12,9 @@ export default ({ questionList }) => {
             <QuestionItem
               title={el.get('title')}
               questionId={el.get('_id')}
-              author={el.get('author').get('name')}
+              author={el.get('author')}
               date={el.get('date')}
+              history={history}
             />
           </li>
         ))

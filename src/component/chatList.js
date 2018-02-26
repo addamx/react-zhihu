@@ -8,7 +8,7 @@ export default ({ chatList }) => {
       {
         chatList.map(el => (
           <li key={el.get('chatId')}>
-            <Link to={`/chat/${el.get('chatId')}`}>{`与${el.get('talker').get('name')}的聊天`} {el.get('chatId')}<i>{el.get('noReadMsg')}</i></Link>
+            <Link to={`/chat/${el.get('chatId')}`}>{`与${el.get('talker').get('name')}的聊天`} {el.get('chatId')}{  }<i>( {el.get('noReadMsg')} )</i></Link>
           </li>
         ))
       }

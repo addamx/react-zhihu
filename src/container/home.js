@@ -27,7 +27,7 @@ export default class Home extends Component {
     return (
       <div>
         <NavBar />
-        <QuestionList questionList={questionList} />
+        <QuestionList questionList={questionList} history={this.props.history} />
       </div>
     )
   }
