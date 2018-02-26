@@ -43,7 +43,6 @@ export default class Author extends Component {
 
   handlerOnClick() {
     const chatId = [this.props.userId, this.props.author.get('_id')].sort().join('');
-    console.log(this.props)
     this.props.history.push(`/chat/${chatId}`)
   }
 

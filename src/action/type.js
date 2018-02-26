@@ -17,7 +17,6 @@ export const ADD_QUESTION = 'ADD_QUESTION';
  */
 export const GET_CHATLIST = 'GET_CHATLIST';
 export const SEND_MESSAGE = 'SEND_MESSAGE';
-export const READ_MESSAGE = 'READ_MESSAGE';
 export const GET_USER = 'GET_USER';
 export const SET_CURRENTCHAT = 'SET_CURRENTCHAT';
 export const OUT_CURRENTCHAT = 'OUT_CURRENTCHAT'; //TODO: 退出当前窗口, 同时清理store记录(currentTalker, currentChat)

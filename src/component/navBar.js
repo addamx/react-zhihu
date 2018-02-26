@@ -36,15 +36,16 @@ export default class Header extends Component {
   }
 
   handleAskQuestion() {
-    const isSuccess = this.props.askQuestion(this.state.title, this.state.desc)
+    if (this.state.title.trim()) {
+      this.props.askQuestion(this.state.title, this.state.desc)
+    }
   }
 
   render() {
     const { user, noReadChat } = this.props;
-    const userId = user.get('_id');
 
     let header;
-    if (userId) {
+    if (user.size) {
       header = (
         <div>
           <div>

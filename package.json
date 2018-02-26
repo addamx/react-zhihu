@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.1.6",
     "autoprefixer": "7.1.6",
     "axios": "^0.17.1",
     "babel-core": "6.26.0",
@@ -34,6 +33,7 @@
     "immutable": "^3.8.2",
     "jest": "20.0.4",
     "moment": "^2.20.1",
+    "node-sass": "^4.7.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -118,7 +118,9 @@
   },
   "devDependencies": {
     "react-app-rewired": "^1.4.1",
-    "react-hot-loader": "^3.1.3"
+    "react-hot-loader": "^3.1.3",
+    "sass-loader": "^6.0.6",
+    "spectre.css": "^0.5.1"
   },
   "proxy": "http://localhost:1510"
 }

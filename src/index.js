@@ -7,7 +7,8 @@ import { Provider } from 'react-redux';
 import configureStore from './store'
 import './util/axiosMiddleware';
 // import './util/rem';
-import './index.css';
+
+import './style/index.scss';
 
 
 

@@ -1,12 +1,11 @@
 import React from 'react'
 
-export default () => {
-  const questions = [{title:'这是问题1'},{title:'这是问题2'}]
+export default ({ searchResult }) => {
   return (
     <ul>
       {
-        questions.map( (el,index) => (
-          <li key={index}>{el.title}</li>
+        searchResult.map( (el,index) => (
+          <li key={index}>{el.get('title')}</li>
         ))
       }
     </ul>

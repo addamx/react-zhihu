@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { GET_CHATLIST, GET_USER, SEND_MESSAGE, READ_MESSAGE, SET_CURRENTCHAT } from './type'
+import { GET_CHATLIST, GET_USER, SEND_MESSAGE, SET_CURRENTCHAT } from './type'
 
 import axios from 'axios';
 

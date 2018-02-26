@@ -6,4 +6,15 @@ const getQueryKeys = function(query) {
   )).join(' ')
 }
 
-export {getQueryKeys}
+const debounce = (idle, action) => {
+  let last;
+  return function () {
+    let ctx = this, args = arguments;
+    clearTimeout(last)
+    return last = setTimeout(() => {
+      action.apply(ctx, args)
+    }, idle)
+  }
+}
+
+export { getQueryKeys, debounce }

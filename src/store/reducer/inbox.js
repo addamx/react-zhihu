@@ -1,5 +1,5 @@
 import { Map, List, fromJS } from "immutable";
-import { GET_CHATLIST, SEND_MESSAGE, READ_MESSAGE, GET_USER, SET_CURRENTCHAT } from '../../action/type'
+import { GET_CHATLIST, SEND_MESSAGE, GET_USER, SET_CURRENTCHAT } from '../../action/type'
 
 const initState = fromJS({
   noReadChat: 0, //未读消息数目
