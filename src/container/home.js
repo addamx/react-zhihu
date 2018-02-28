@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { fetchQuestionList } from '../action/question'
 import QuestionList from '../component/questionList'
 
-import NavBar from '../component/navBar'
+
 
 
 @connect(
@@ -25,8 +25,7 @@ export default class Home extends Component {
     const userId = user.get('_id');
 
     return (
-      <div>
-        <NavBar />
+      <div className={`page page-${this.constructor.name}`}>
         <QuestionList questionList={questionList} history={this.props.history} />
       </div>
     )

@@ -5,14 +5,17 @@ import { fetchUser } from '../action/user'
 import { fetchChatList, connectSocket } from '../action/inbox'
 import { getQueryKeys } from '../util/func'
 
-import Home from './home'
-import Question from '../container/question'
-import People from '../container/people'
-import Inbox from '../container/inbox'
-import Logout from '../container/logout'
-import Chat from '../container/chat'
-
 import { Route, Switch } from "react-router-dom";
+import asyncComponent from '../asyncComponent'
+
+
+const Home = asyncComponent(() => import('./home'))
+const Question = asyncComponent(() => import('./question'))
+const People = asyncComponent(() => import('./people'))
+const Inbox = asyncComponent(() => import('./inbox'))
+const Logout = asyncComponent(() => import('./logout'))
+const Chat = asyncComponent(() => import('./chat'))
+const NavBar = asyncComponent(() => import('../component/navBar'))
 
 @connect(
   null,
@@ -60,16 +63,19 @@ export default class DashBoard extends Component {
       )
     } else {
       return (
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/question/:id" component={Question} />
-          <Route path="/people/:id" component ={People} />
-          
-          { authSuccess && <Route path="/logout" component ={Logout} /> }
-          { chatSuccess && <Route path="/inbox" component ={Inbox} /> }
-          { chatSuccess && <Route path="/chat/:id" component ={Chat} /> }
-          <Route render={() => <h2>404</h2>} />
-        </Switch>
+        <div>
+          <NavBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/question/:id" component={Question} />
+            <Route path="/people/:id" component ={People} />
+            
+            { authSuccess && <Route path="/logout" component ={Logout} /> }
+            { chatSuccess && <Route path="/inbox" component ={Inbox} /> }
+            { chatSuccess && <Route path="/chat/:id" component ={Chat} /> }
+            <Route render={() => <h2>404</h2>} />
+          </Switch>
+        </div>
       )
     }
   }

@@ -55,3 +55,7 @@
     - react-addons-css-transition-group
 
 
+
+### Style
+button: #0084ff;
+body: #1a1a1a;

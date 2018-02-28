@@ -23,10 +23,12 @@ export default class Header extends Component {
     super()
     this.state = {
       title: '',
-      desc: ''
+      desc: '',
+      showAsk: false
     }
     this.handleAskQuestion = this.handleAskQuestion.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
+    this.toggleAsk = this.toggleAsk.bind(this);
   }
 
   handleTextChange(e) {
@@ -41,16 +43,25 @@ export default class Header extends Component {
     }
   }
 
+  toggleAsk(bool) {
+    this.setState({
+      showAsk: bool
+    })
+  }
+
   render() {
     const { user, noReadChat } = this.props;
+    const { showAsk } = this.state;
 
     let header;
     if (user.size) {
       header = (
         <div>
           <div>
-            <button onClick={this.handleAskQuestion}>提问</button>
-            <Ask handleTextChange={this.handleTextChange} />
+            <button onClick={() => {this.toggleAsk(true)}}>提问</button>
+            <div className={'modal ' + (showAsk && 'active')}>
+              <Ask toggleAsk={this.toggleAsk} handleAskQuestion={this.handleAskQuestion} handleTextChange={this.handleTextChange} />
+            </div>
           </div>
           <NoticeIcon />
           <InboxIcon noReadChat={noReadChat} />
@@ -66,10 +77,10 @@ export default class Header extends Component {
       )
     }
     return (
-      <div>
+      <header>
         <SearchBar />
         {header}      
-      </div>
+      </header>
     )
   }
 }
