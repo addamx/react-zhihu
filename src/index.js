@@ -11,7 +11,6 @@ import './util/axiosMiddleware';
 import './style/index.scss';
 
 
-
 const store = configureStore();
 
 store.subscribe(()=>{console.log(store.getState().toJS())})

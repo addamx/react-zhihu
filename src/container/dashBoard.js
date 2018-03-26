@@ -8,14 +8,25 @@ import { getQueryKeys } from '../util/func'
 import { Route, Switch } from "react-router-dom";
 import asyncComponent from '../asyncComponent'
 
+/*
+require.ensure([], () => {
+    require("a");
+}, err => {
+    console.error("We failed to load chunk: " + err);
+}, "chunk-name");
 
-const Home = asyncComponent(() => import('./home'))
-const Question = asyncComponent(() => import('./question'))
-const People = asyncComponent(() => import('./people'))
-const Inbox = asyncComponent(() => import('./inbox'))
-const Logout = asyncComponent(() => import('./logout'))
-const Chat = asyncComponent(() => import('./chat'))
-const NavBar = asyncComponent(() => import('../component/navBar'))
+//react-router 4.0 不再提供getComponent异步获取组件
+*/
+const Home = asyncComponent(() => require.ensure([], () => {
+  return require('./home'); //return import('./home')
+}, 'home'));
+
+const NavBar = asyncComponent(() => import(/* webpackChunkName: "navBar" */ '../component/navBar'))
+const Question = asyncComponent(() => import(/* webpackChunkName: "question" */ './question'))
+const People = asyncComponent(() => import(/* webpackChunkName: "people" */ './people'))
+const Inbox = asyncComponent(() => import(/* webpackChunkName: "inbox" */ './inbox'))
+const Logout = asyncComponent(() => import(/* webpackChunkName: "logout" */ './logout'))
+const Chat = asyncComponent(() => import(/* webpackChunkName: "chat" */ './chat'))
 
 @connect(
   null,
